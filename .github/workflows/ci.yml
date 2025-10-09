@@ -106,4 +106,4 @@ jobs:
           pylint src/ --output-format=text > lint_report.txt || true
 
       - name: Upload lint report
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v4
