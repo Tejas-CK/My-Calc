@@ -14,6 +14,7 @@ from calculator import add, divide, subtract, multiply, square_root, power
 @click.argument("num2", type=float, required=False)
 def calculate(operation, num1, num2=None):
     """Simple calculator CLI"""
+
     try:
         if operation == "add":
             result = add(num1, num2)
@@ -25,24 +26,17 @@ def calculate(operation, num1, num2=None):
             result = divide(num1, num2)
         elif operation == "power":
             result = power(num1, num2)
-        elif operation == "square_root":
+        elif operation == "square_root" or operation == "sqrt":
             result = square_root(num1)
         else:
             click.echo(f"Unknown operation: {operation}")
             sys.exit(1)
-
-        # Format result nicely
-        if result == int(result):
-            click.echo(int(result))
-        else:
-            click.echo(f"{result:.2f}")
-
-    except ValueError as e:
+    except Exception as e:
         click.echo(f"Error: {e}")
         sys.exit(1)
-    except Exception as e:
-        click.echo(f"Unexpected error: {e}")
-        sys.exit(1)
+
+    return result
+
 
 
 if __name__ == "__main__":
