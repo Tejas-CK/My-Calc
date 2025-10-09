@@ -6,7 +6,10 @@ on:
   pull_request:
     branches: [ '**' ]
   workflow_dispatch:
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feature/cli-app
 jobs:
   # Build stage: prepare Python and install dependencies
   build:
