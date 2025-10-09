@@ -5,6 +5,7 @@ on:
     branches: [ '**' ]
   pull_request:
     branches: [ '**' ]
+  workflow_dispatch:
 
 jobs:
   # Build stage: prepare Python and install dependencies
@@ -106,4 +107,7 @@ jobs:
           pylint src/ --output-format=text > lint_report.txt || true
 
       - name: Upload lint report
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lint-report
+          path: lint_report.txt
