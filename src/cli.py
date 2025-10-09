@@ -5,9 +5,7 @@ Example: python src/cli.py add 5 3
 
 import sys
 import click
-from calculator import add, divide, power, square_root, subtract, multiply
-
-divide, power, square_root
+from calculator import add, divide, subtract, multiply, square_root, power
 
 
 @click.command()
