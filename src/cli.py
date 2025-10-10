@@ -2,6 +2,7 @@ import sys
 import click
 from src.calculator import add, subtract, multiply, divide, power, square_root
 
+
 @click.command()
 @click.argument("operation")
 @click.argument("num1", type=float)
@@ -33,6 +34,7 @@ def calculate(operation, num1, num2=None):
     except Exception as e:
         click.echo(f"Unexpected error: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     calculate()
