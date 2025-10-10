@@ -1,3 +1,8 @@
+"""
+Command Line Interface for Calculator
+Example: python src/cli.py add 5 3
+"""
+
 import sys
 import click
 from src.calculator import add, subtract, multiply, divide, power, square_root
@@ -26,12 +31,16 @@ def calculate(operation, num1, num2=None):
             click.echo(f"Unknown operation: {operation}")
             sys.exit(1)
 
-        click.echo(f"{int(result) if result == int(result) else f'{result:.2f}'}")
+        # Format result nicely
+        if result == int(result):
+            click.echo(int(result))
+        else:
+            click.echo(f"{result:.2f}")
 
     except ValueError as e:
         click.echo(f"Error: {e}")
         sys.exit(1)
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         click.echo(f"Unexpected error: {e}")
         sys.exit(1)
 
