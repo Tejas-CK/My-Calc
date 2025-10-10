@@ -1,4 +1,6 @@
-"""Integration Tests - CLI + Calculator Working Together"""
+"""
+Integration Tests - CLI + Calculator Working Together
+"""
 
 from click.testing import CliRunner
 import pytest
@@ -14,34 +16,34 @@ class TestCLIIntegration:
         return runner.invoke(calculate, list(args))
 
     def test_cli_add_integration(self):
-        res = self.run_cli("add", "5", "3")
-        assert res.exit_code == 0
-        assert res.output.strip() == "8"
+        result = self.run_cli("add", "5", "3")
+        assert result.exit_code == 0
+        assert result.output.strip() == "8"
 
     def test_cli_multiply_integration(self):
-        res = self.run_cli("multiply", "4", "7")
-        assert res.exit_code == 0
-        assert res.output.strip() == "28"
+        result = self.run_cli("multiply", "4", "7")
+        assert result.exit_code == 0
+        assert result.output.strip() == "28"
 
     def test_cli_divide_integration(self):
-        res = self.run_cli("divide", "15", "3")
-        assert res.exit_code == 0
-        assert res.output.strip() == "5"
+        result = self.run_cli("divide", "15", "3")
+        assert result.exit_code == 0
+        assert result.output.strip() == "5"
 
     def test_cli_sqrt_integration(self):
-        res = self.run_cli("sqrt", "16")
-        assert res.exit_code == 0
-        assert res.output.strip() == "4"
+        result = self.run_cli("sqrt", "16")
+        assert result.exit_code == 0
+        assert result.output.strip() == "4"
 
     def test_cli_error_handling_integration(self):
-        res = self.run_cli("divide", "10", "0")
-        assert res.exit_code == 1
-        assert "Cannot divide by zero" in res.output
+        result = self.run_cli("divide", "10", "0")
+        assert result.exit_code == 1
+        assert "Cannot divide by zero" in result.output
 
     def test_cli_invalid_operation_integration(self):
-        res = self.run_cli("invalid", "1", "2")
-        assert res.exit_code == 1
-        assert "Unknown operation" in res.output
+        result = self.run_cli("invalid", "1", "2")
+        assert result.exit_code == 1
+        assert "Unknown operation" in result.output
 
 
 class TestCalculatorModuleIntegration:
@@ -52,7 +54,7 @@ class TestCalculatorModuleIntegration:
         from src.calculator import add, multiply, divide
 
         # Calculate (5 + 3) * 2 / 4
-        step1 = add(5, 3)       # 8
+        step1 = add(5, 3)           # 8
         step2 = multiply(step1, 2)  # 16
         step3 = divide(step2, 4)    # 4
         assert step3 == 4.0
@@ -62,8 +64,8 @@ class TestCalculatorModuleIntegration:
         from src.calculator import power, square_root, add
 
         # Calculate sqrt(3^2 + 4^2) = 5 (Pythagorean theorem)
-        a_squared = power(3, 2)       # 9
-        b_squared = power(4, 2)       # 16
+        a_squared = power(3, 2)           # 9
+        b_squared = power(4, 2)           # 16
         sum_squares = add(a_squared, b_squared)  # 25
         hypotenuse = square_root(sum_squares)    # 5
         assert hypotenuse == 5.0

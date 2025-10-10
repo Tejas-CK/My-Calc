@@ -7,41 +7,43 @@ import sys
 import click
 from src.calculator import add, subtract, multiply, divide, power, square_root
 
-OPERATIONS = {
-    "add": add,
-    "subtract": subtract,
-    "multiply": multiply,
-    "divide": divide,
-    "power": power,
-    "square_root": square_root,
-    "sqrt": square_root,
-}
 
 @click.command()
 @click.argument("operation")
 @click.argument("num1", type=float)
 @click.argument("num2", type=float, required=False)
 def calculate(operation, num1, num2=None):
-    """CLI calculator that performs basic operations."""
-    func = OPERATIONS.get(operation)
-    if func is None:
-        click.echo(f"Unknown operation: {operation}")
-        sys.exit(1)
-
+    """Simple calculator CLI"""
     try:
-        result = func(num1) if operation in ("square_root", "sqrt") else func(num1, num2)
-    except ZeroDivisionError:
-        click.echo("Cannot divide by zero")
-        sys.exit(1)
+        if operation == "add":
+            result = add(num1, num2)
+        elif operation == "subtract":
+            result = subtract(num1, num2)
+        elif operation == "multiply":
+            result = multiply(num1, num2)
+        elif operation == "divide":
+            result = divide(num1, num2)
+        elif operation == "power":
+            result = power(num1, num2)
+        elif operation in ("square_root", "sqrt"):
+            result = square_root(num1)
+        else:
+            click.echo(f"Unknown operation: {operation}")
+            sys.exit(1)
+
+        # Format result nicely
+        if result == int(result):
+            click.echo(int(result))
+        else:
+            click.echo(f"{result:.2f}")
+
     except ValueError as e:
         click.echo(f"Error: {e}")
         sys.exit(1)
-
-    if result == int(result):
-        click.echo(int(result))
-    else:
-        click.echo(f"{result:.2f}")
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        click.echo(f"Unexpected error: {e}")
+        sys.exit(1)
 
 
 if __name__ == "__main__":
-    calculate()
+    calculate()  # pylint: disable=no-value-for-parameter
