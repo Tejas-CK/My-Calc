@@ -4,3 +4,5 @@ pylint
 click
 requests
 bandit
+click
+black
