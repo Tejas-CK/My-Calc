@@ -25,7 +25,8 @@ def calculate(operation, num1, num2=None):
             click.echo(f"Unknown operation: {operation}")
             sys.exit(1)
 
-        click.echo(int(result) if result == int(result) else f"{result:.2f}")
+        click.echo(f"{int(result) if result == int(result) else f'{result:.2f}'}")
+
     except ValueError as e:
         click.echo(f"Error: {e}")
         sys.exit(1)
